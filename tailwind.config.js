@@ -33,6 +33,12 @@ export default {
           DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
         },
+        dark: {
+          200: '#e5e7eb',
+          400: '#9ca3af',
+          600: '#374151',
+          700: '#1f2937',
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

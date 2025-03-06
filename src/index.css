@@ -27,28 +27,6 @@
     --ring: 240 4.9% 83.9%;
     --radius: 0.5rem;
   }
-
-  .bg-dark-700 {
-    background-color: #1f2937;
-    /* Adjust the color as needed */
-  }
-
-  .text-dark-200 {
-    color: #e5e7eb;
-    /* Adjust the color as needed */
-  }
-
-  .text-dark-400 {
-    color: #9ca3af;
-    /* Adjust the color as needed */
-  }
-}
-
-@layer utilities {
-  .hover\:bg-dark-600:hover {
-    background-color: #374151;
-    /* Adjust the color as needed */
-  }
 }
 
 body {
@@ -60,7 +38,7 @@ body {
 }
 
 .user-message {
-  @apply bg-primary text-primary-foreground rounded-tr-none;
+  @apply bg-gray-800 text-primary-foreground rounded-tr-none;
 }
 
 .assistant-message {
