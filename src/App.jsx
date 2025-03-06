@@ -24,7 +24,6 @@ const ChatApp = () => {
   };
 
   const formatCodeResponse = (text) => {
-    // Replace [object Object] artifacts with proper markdown code blocks
     return text.replace(/\[object Object\],\n?/g, '')
               .replace(/,\(,\[object Object\],\)/g, '')
               .replace(/,\[object Object\],/g, '')
@@ -95,15 +94,14 @@ const ChatApp = () => {
   };
 
   return (
-    <div className="flex flex-col items-center justify-center min-h-screen bg-dark-950 p-4">
-      <div className="w-full max-w-4xl bg-dark-900 rounded-lg shadow-xl border border-dark-800 flex flex-col h-[85vh]">
+    <div className="h-screen flex flex-col bg-background">
+      <div className="flex-1 flex flex-col h-full">
         <ChatHeader />
-
-        <div className="flex-grow overflow-y-auto p-4 space-y-4">
+        <div className="flex-1 overflow-y-auto p-4 space-y-4">
           {messages.length === 0 ? (
-            <div className="flex flex-col items-center justify-center h-full text-dark-400">
+            <div className="flex flex-col items-center justify-center h-full text-muted-foreground">
               <svg
-                className="w-16 h-16 mb-4 text-blue-500"
+                className="w-16 h-16 mb-4 text-primary"
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -128,7 +126,6 @@ const ChatApp = () => {
           )}
           <div ref={messagesEndRef} />
         </div>
-
         <ChatInput onSendMessage={sendMessage} isLoading={isLoading} />
       </div>
     </div>

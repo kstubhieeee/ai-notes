@@ -23,15 +23,15 @@ const ChatInput = ({ onSendMessage, isLoading }) => {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="border-t border-dark-800 p-4">
-      <div className="flex items-center bg-dark-800 rounded-lg overflow-hidden">
+    <form onSubmit={handleSubmit} className="border-t border-border p-4">
+      <div className="flex items-center bg-muted rounded-lg overflow-hidden">
         <textarea
           ref={inputRef}
           value={input}
           onChange={(e) => setInput(e.target.value)}
           onKeyDown={handleKeyDown}
           placeholder="Type a message..."
-          className="flex-grow py-3 px-4 bg-transparent outline-none resize-none max-h-32 text-dark-50 placeholder-dark-400"
+          className="flex-grow py-3 px-4 bg-transparent outline-none resize-none max-h-32 text-foreground placeholder-muted-foreground"
           rows={1}
           disabled={isLoading}
         />
@@ -40,8 +40,8 @@ const ChatInput = ({ onSendMessage, isLoading }) => {
           disabled={!input.trim() || isLoading}
           className={`p-3 mx-2 rounded-full ${
             !input.trim() || isLoading
-              ? "bg-dark-700 text-dark-400 cursor-not-allowed"
-              : "bg-blue-600 text-white hover:bg-blue-700"
+              ? "bg-secondary text-secondary-foreground cursor-not-allowed"
+              : "bg-primary text-primary-foreground hover:bg-primary/90"
           } transition-colors duration-200`}
         >
           {isLoading ? (

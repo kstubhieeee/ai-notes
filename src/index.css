@@ -4,37 +4,80 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: dark;
+@layer base {
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 240 10% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 240 10% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 240 5.9% 10%;
+    --secondary: 240 3.7% 15.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 240 3.7% 15.9%;
+    --muted-foreground: 240 5% 64.9%;
+    --accent: 240 3.7% 15.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 240 3.7% 15.9%;
+    --input: 240 3.7% 15.9%;
+    --ring: 240 4.9% 83.9%;
+    --radius: 0.5rem;
+  }
+
+  .bg-dark-700 {
+    background-color: #1f2937;
+    /* Adjust the color as needed */
+  }
+
+  .text-dark-200 {
+    color: #e5e7eb;
+    /* Adjust the color as needed */
+  }
+
+  .text-dark-400 {
+    color: #9ca3af;
+    /* Adjust the color as needed */
+  }
+}
+
+@layer utilities {
+  .hover\:bg-dark-600:hover {
+    background-color: #374151;
+    /* Adjust the color as needed */
+  }
 }
 
 body {
-  @apply bg-dark-950 text-dark-50 font-sans antialiased;
+  @apply bg-background text-foreground font-sans antialiased;
 }
 
 .message-bubble {
-  @apply px-4 py-3 rounded-2xl max-w-[80%];
+  @apply px-4 py-3 rounded-lg max-w-[80%];
 }
 
 .user-message {
-  @apply bg-blue-600 text-white rounded-tr-none;
+  @apply bg-primary text-primary-foreground rounded-tr-none;
 }
 
 .assistant-message {
-  @apply bg-dark-800 text-dark-50 rounded-tl-none;
+  @apply bg-muted text-muted-foreground rounded-tl-none;
 }
 
 .thinking-bubble {
-  @apply bg-dark-800 text-dark-50 rounded-tl-none animate-pulse;
+  @apply bg-muted text-muted-foreground rounded-tl-none animate-pulse;
 }
 
 .chat-input {
-  @apply bg-dark-800 border-dark-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent;
+  @apply bg-muted text-muted-foreground border-input focus:ring-2 focus:ring-ring focus:border-transparent;
 }
 
 /* Code block styles */
 pre {
-  @apply bg-dark-800 rounded-lg p-4 my-4 overflow-x-auto;
+  @apply bg-muted rounded-lg p-4 my-4 overflow-x-auto;
 }
 
 pre code {
@@ -42,12 +85,12 @@ pre code {
 }
 
 code {
-  @apply bg-dark-800 px-1.5 py-0.5 rounded text-sm font-mono;
+  @apply bg-muted px-1.5 py-0.5 rounded text-sm font-mono;
 }
 
 /* Markdown content styles */
 .prose {
-  @apply text-dark-50;
+  @apply text-foreground;
 }
 
 .prose h1,
@@ -56,7 +99,7 @@ code {
 .prose h4,
 .prose h5,
 .prose h6 {
-  @apply text-dark-50 font-semibold mt-6 mb-4;
+  @apply text-foreground font-semibold mt-6 mb-4;
 }
 
 .prose p {
@@ -73,15 +116,15 @@ code {
 }
 
 .prose blockquote {
-  @apply border-l-4 border-dark-700 bg-dark-800/50 px-4 py-2 rounded-r my-4;
+  @apply border-l-4 border-border bg-muted/50 px-4 py-2 rounded-r my-4;
 }
 
 .prose a {
-  @apply text-blue-400 hover:text-blue-300;
+  @apply text-primary hover:text-primary/90;
 }
 
 .prose strong {
-  @apply text-dark-50 font-semibold;
+  @apply text-foreground font-semibold;
 }
 
 .prose table {
@@ -90,13 +133,22 @@ code {
 
 .prose th,
 .prose td {
-  @apply border border-dark-700 px-4 py-2;
+  @apply border border-border px-4 py-2;
 }
 
 .prose th {
-  @apply bg-dark-800;
+  @apply bg-muted;
 }
 
 .prose hr {
-  @apply border-dark-700 my-8;
+  @apply border-border my-8;
+}
+
+/* Copy button styles */
+.copy-button {
+  @apply absolute right-2 top-2 bg-dark-700 hover:bg-dark-600 text-dark-200 px-2 py-1 rounded text-sm opacity-0 group-hover:opacity-100 transition-opacity;
+}
+
+.copy-button.copied {
+  @apply bg-green-600 text-white;
 }
