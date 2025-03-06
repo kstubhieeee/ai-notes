@@ -11,12 +11,10 @@ const ChatApp = () => {
   const messagesEndRef = useRef(null);
   const API_KEY = import.meta.env.VITE_V1_API;
 
-  // Scroll to bottom when messages or loading state changes
   useEffect(() => {
     scrollToBottom();
   }, [messages, isLoading]);
 
-  // Add dark mode class to the HTML element
   useEffect(() => {
     document.documentElement.classList.add("dark");
   }, []);
@@ -25,62 +23,76 @@ const ChatApp = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
-const sendMessage = async (inputText) => {
-  if (!inputText.trim()) return;
-
-  const userMessage = {
-    role: "user",
-    content: inputText,
-    timestamp: new Date().toISOString(),
+  const formatCodeResponse = (text) => {
+    // Replace [object Object] artifacts with proper markdown code blocks
+    return text.replace(/\[object Object\],\n?/g, '')
+              .replace(/,\(,\[object Object\],\)/g, '')
+              .replace(/,\[object Object\],/g, '')
+              .trim();
   };
 
-  setMessages((prev) => [...prev, userMessage]);
-  setIsLoading(true);
+  const sendMessage = async (inputText) => {
+    if (!inputText.trim()) return;
 
-  try {
-    const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${API_KEY}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "deepseek/deepseek-chat:free",
-        messages: [...messages, { role: "user", content: inputText }],
-      }),
-    });
+    const userMessage = {
+      role: "user",
+      content: inputText,
+      timestamp: new Date().toISOString(),
+    };
 
-    if (!response.ok) {
-      throw new Error(`API error: ${response.status}`);
-    }
+    setMessages((prev) => [...prev, userMessage]);
+    setIsLoading(true);
 
-    const data = await response.json();
-    const botReply = data.choices[0]?.message;
+    try {
+      const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${API_KEY}`,
+          "Content-Type": "application/json",
+          "HTTP-Referer": window.location.origin,
+        },
+        body: JSON.stringify({
+          model: "deepseek/deepseek-chat:free",
+          messages: messages.concat(userMessage).map(msg => ({
+            role: msg.role,
+            content: msg.content
+          })),
+        }),
+      });
 
-    if (botReply) {
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const botReply = data.choices[0]?.message;
+
+      if (botReply) {
+        const formattedContent = formatCodeResponse(botReply.content);
+        setMessages((prev) => [
+          ...prev,
+          {
+            role: botReply.role,
+            content: formattedContent,
+            timestamp: new Date().toISOString(),
+          },
+        ]);
+      }
+    } catch (error) {
+      console.error("Error fetching response:", error);
       setMessages((prev) => [
         ...prev,
         {
-          ...botReply,
+          role: "assistant",
+          content: "Sorry, I encountered an error while processing your request. Please try again later.",
           timestamp: new Date().toISOString(),
+          isError: true,
         },
       ]);
+    } finally {
+      setIsLoading(false);
     }
-  } catch (error) {
-    console.error("Error fetching response:", error);
-    setMessages((prev) => [
-      ...prev,
-      {
-        role: "assistant",
-        content: "Sorry, I encountered an error while processing your request. Please try again later.",
-        timestamp: new Date().toISOString(),
-        isError: true,
-      },
-    ]);
-  } finally {
-    setIsLoading(false);
-  }
-};
+  };
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen bg-dark-950 p-4">

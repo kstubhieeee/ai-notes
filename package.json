@@ -10,14 +10,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@mdx-js/react": "^3.0.0",
-    "@mdx-js/rollup": "^3.0.0",
+    "marked": "^11.1.1",
+    "highlight.js": "^11.9.0",
     "react": "^19.0.0",
-    "react-dom": "^19.0.0",
-    "react-markdown": "^9.0.1",
-    "react-syntax-highlighter": "^15.5.0",
-    "rehype-highlight": "^7.0.0",
-    "remark-gfm": "^4.0.0"
+    "react-dom": "^19.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.21.0",
