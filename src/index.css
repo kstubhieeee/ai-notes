@@ -1,301 +1,96 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
-  --primary-color: #4f46e5;
-  --primary-hover: #4338ca;
-  --text-primary: #1f2937;
-  --text-secondary: #6b7280;
-  --bg-primary: #ffffff;
-  --bg-secondary: #f3f4f6;
-  --border-color: #e5e7eb;
-}
-
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+  color-scheme: dark;
 }
 
 body {
-  font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
-    "Helvetica Neue", sans-serif;
-  background-color: var(--bg-secondary);
-  color: var(--text-primary);
-  line-height: 1.5;
+  @apply bg-dark-950 text-dark-50 font-sans antialiased;
 }
 
-.animate-appear {
-  animation: appear 0.3s ease-out;
+.message-bubble {
+  @apply px-4 py-3 rounded-2xl max-w-[80%];
 }
 
-.animate-spin {
-  animation: spin 1s linear infinite;
+.user-message {
+  @apply bg-blue-600 text-white rounded-tr-none;
 }
 
-@keyframes appear {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
+.assistant-message {
+  @apply bg-dark-800 text-dark-50 rounded-tl-none;
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.thinking-bubble {
+  @apply bg-dark-800 text-dark-50 rounded-tl-none animate-pulse;
 }
 
-/* Scrollbar styling */
-::-webkit-scrollbar {
-  width: 6px;
+.chat-input {
+  @apply bg-dark-800 border-dark-700 focus:ring-2 focus:ring-blue-500 focus:border-transparent;
 }
 
-::-webkit-scrollbar-track {
-  background: transparent;
+/* Markdown Styles */
+.prose {
+  @apply text-dark-50;
 }
 
-::-webkit-scrollbar-thumb {
-  background-color: rgba(156, 163, 175, 0.5);
-  border-radius: 20px;
+.prose code {
+  @apply text-dark-50 bg-dark-800 rounded px-1;
 }
 
-::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(156, 163, 175, 0.8);
+.prose pre {
+  @apply bg-dark-800 rounded-lg;
 }
 
-/* Utility classes */
-.flex {
-  display: flex;
-}
-.flex-col {
-  flex-direction: column;
-}
-.items-center {
-  align-items: center;
-}
-.justify-center {
-  justify-content: center;
-}
-.justify-start {
-  justify-content: flex-start;
-}
-.justify-end {
-  justify-content: flex-end;
-}
-.flex-grow {
-  flex-grow: 1;
-}
-.h-screen {
-  height: 100vh;
-}
-.w-full {
-  width: 100%;
-}
-.max-w-md {
-  max-width: 28rem;
-}
-.max-w-lg {
-  max-width: 32rem;
-}
-.max-w-xl {
-  max-width: 36rem;
-}
-.p-2 {
-  padding: 0.5rem;
-}
-.p-3 {
-  padding: 0.75rem;
-}
-.p-4 {
-  padding: 1rem;
-}
-.px-4 {
-  padding-left: 1rem;
-  padding-right: 1rem;
-}
-.py-3 {
-  padding-top: 0.75rem;
-  padding-bottom: 0.75rem;
-}
-.m-2 {
-  margin: 0.5rem;
-}
-.mx-2 {
-  margin-left: 0.5rem;
-  margin-right: 0.5rem;
-}
-.my-1 {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-}
-.mt-1 {
-  margin-top: 0.25rem;
-}
-.mt-2 {
-  margin-top: 0.5rem;
-}
-.mb-4 {
-  margin-bottom: 1rem;
-}
-.ml-3 {
-  margin-left: 0.75rem;
-}
-.mr-1 {
-  margin-right: 0.25rem;
-}
-.bg-white {
-  background-color: white;
-}
-.bg-gray-100 {
-  background-color: #f3f4f6;
-}
-.bg-gray-200 {
-  background-color: #e5e7eb;
-}
-.bg-gray-300 {
-  background-color: #d1d5db;
-}
-.bg-indigo-600 {
-  background-color: #4f46e5;
-}
-.hover\:bg-indigo-700:hover {
-  background-color: #4338ca;
-}
-.text-white {
-  color: white;
-}
-.text-gray-500 {
-  color: #6b7280;
-}
-.text-gray-800 {
-  color: #1f2937;
-}
-.text-indigo-600 {
-  color: #4f46e5;
-}
-.text-xs {
-  font-size: 0.75rem;
-}
-.text-sm {
-  font-size: 0.875rem;
-}
-.text-base {
-  font-size: 1rem;
-}
-.text-lg {
-  font-size: 1.125rem;
-}
-.text-xl {
-  font-size: 1.25rem;
-}
-.font-semibold {
-  font-weight: 600;
-}
-.font-bold {
-  font-weight: 700;
-}
-.rounded-lg {
-  border-radius: 0.5rem;
-}
-.rounded-2xl {
-  border-radius: 1rem;
-}
-.rounded-full {
-  border-radius: 9999px;
-}
-.rounded-tr-none {
-  border-top-right-radius: 0;
-}
-.rounded-tl-none {
-  border-top-left-radius: 0;
-}
-.rounded-t-lg {
-  border-top-left-radius: 0.5rem;
-  border-top-right-radius: 0.5rem;
-}
-.border {
-  border-width: 1px;
-}
-.border-b {
-  border-bottom-width: 1px;
-}
-.border-t {
-  border-top-width: 1px;
-}
-.border-gray-200 {
-  border-color: #e5e7eb;
-}
-.shadow-lg {
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
-}
-.overflow-y-auto {
-  overflow-y: auto;
-}
-.overflow-hidden {
-  overflow: hidden;
-}
-.outline-none {
-  outline: none;
-}
-.resize-none {
-  resize: none;
-}
-.whitespace-pre-wrap {
-  white-space: pre-wrap;
-}
-.break-words {
-  word-break: break-word;
-}
-.cursor-not-allowed {
-  cursor: not-allowed;
-}
-.transition-colors {
-  transition-property: background-color, border-color, color, fill, stroke;
-}
-.duration-200 {
-  transition-duration: 200ms;
-}
-.text-left {
-  text-align: left;
-}
-.text-right {
-  text-align: right;
-}
-.w-5 {
-  width: 1.25rem;
-}
-.h-5 {
-  height: 1.25rem;
-}
-.w-8 {
-  width: 2rem;
-}
-.w-10 {
-  width: 2.5rem;
-}
-.h-10 {
-  height: 2.5rem;
-}
-.max-h-32 {
-  max-height: 8rem;
-}
-.bg-transparent {
-  background-color: transparent;
-}
-.disabled\:opacity-50:disabled {
-  opacity: 0.5;
+.prose pre code {
+  @apply bg-transparent p-0;
 }
 
-@media (min-width: 768px) {
-  .md\:text-base {
-    font-size: 1rem;
-  }
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+  @apply text-dark-50 font-semibold;
 }
 
+.prose strong {
+  @apply text-dark-50 font-semibold;
+}
+
+.prose a {
+  @apply text-blue-400 hover:text-blue-300;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-dark-700 bg-dark-800/50 px-4 py-2 rounded-r;
+}
+
+.prose ul,
+.prose ol {
+  @apply text-dark-50;
+}
+
+.prose li {
+  @apply my-1;
+}
+
+.prose table {
+  @apply border-dark-700;
+}
+
+.prose th {
+  @apply bg-dark-800 text-dark-50 border-dark-700;
+}
+
+.prose td {
+  @apply border-dark-700;
+}
+
+.prose hr {
+  @apply border-dark-700;
+}
