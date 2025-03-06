@@ -7,7 +7,7 @@ const ChatHeader = () => {
         </div>
         <div className="ml-3">
           <h1 className="text-xl font-semibold text-dark-50">AI Assistant</h1>
-          <p className="text-sm text-dark-400">Powered by OpenRouter AI</p>
+          <p className="text-sm text-dark-400">Kaustubh</p>
         </div>
       </div>
     </div>
