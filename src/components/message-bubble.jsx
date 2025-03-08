@@ -3,7 +3,6 @@ import hljs from 'highlight.js';
 import 'highlight.js/styles/github-dark.css';
 import { useState } from 'react';
 
-// Configure marked with highlight.js
 marked.setOptions({
   highlight: function(code, lang) {
     if (lang && hljs.getLanguage(lang)) {
@@ -44,14 +43,20 @@ const CodeBlock = ({ code }) => {
   );
 };
 
-const MessageBubble = ({ message, isLast }) => {
+const MessageBubble = ({ message, isLast, onSave, showSaveButton }) => {
   const isUser = message.role === "user";
+  const [saved, setSaved] = useState(false);
+
+  const handleSave = () => {
+    onSave();
+    setSaved(true);
+    setTimeout(() => setSaved(false), 2000);
+  };
 
   const renderContent = (content) => {
     if (typeof content !== 'string') return '';
     
     try {
-      // Custom renderer for code blocks
       const renderer = new marked.Renderer();
       renderer.code = (code, language) => {
         const highlightedCode = language && hljs.getLanguage(language)
@@ -72,7 +77,6 @@ const MessageBubble = ({ message, isLast }) => {
       const container = document.createElement('div');
       container.innerHTML = htmlContent;
 
-      // Add click handlers for copy buttons after rendering
       setTimeout(() => {
         document.querySelectorAll('.copy-button').forEach(button => {
           if (!button.hasListener) {
@@ -104,10 +108,18 @@ const MessageBubble = ({ message, isLast }) => {
 
   return (
     <div className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4`}>
-      <div className={`max-w-[80%] ${isLast && isUser ? "animate-appear" : ""}`}>
+      <div className={`max-w-[80%] ${isLast && isUser ? "animate-appear" : ""} relative group`}>
         <div className={`message-bubble ${isUser ? "user-message" : "assistant-message"}`}>
           {renderContent(message.content)}
         </div>
+        {showSaveButton && onSave && (
+          <button
+            onClick={handleSave}
+            className="absolute top-2 right-2 bg-primary text-primary-foreground px-2 py-1 rounded text-sm opacity-0 group-hover:opacity-100 transition-opacity"
+          >
+            {saved ? 'Saved!' : 'Save to Notes'}
+          </button>
+        )}
         {message.timestamp && (
           <p className={`text-xs mt-1 ${isUser ? "text-right" : "text-left"} text-dark-400`}>
             {new Date(message.timestamp).toLocaleString()}

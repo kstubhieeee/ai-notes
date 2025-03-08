@@ -6,25 +6,34 @@
 
 @layer base {
   :root {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 240 5% 64.9%;
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
+    --background: 222 47% 11%;
+    --foreground: 213 31% 91%;
+    
+    --card: 222 47% 15%;
+    --card-foreground: 213 31% 91%;
+    
+    --popover: 222 47% 11%;
+    --popover-foreground: 213 31% 91%;
+    
+    --primary: 210 40% 98%;
+    --primary-foreground: 222 47% 11%;
+    
+    --secondary: 217 32% 17%;
+    --secondary-foreground: 210 40% 98%;
+    
+    --muted: 217 32% 17%;
+    --muted-foreground: 215 20.2% 65.1%;
+    
+    --accent: 217 32% 17%;
+    --accent-foreground: 210 40% 98%;
+    
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 217 32% 17%;
+    --input: 217 32% 17%;
+    --ring: 224 71.4% 4.1%;
+    
     --radius: 0.5rem;
   }
 }
@@ -38,11 +47,11 @@ body {
 }
 
 .user-message {
-  @apply bg-gray-800 text-primary-foreground rounded-tr-none;
+  @apply bg-primary/10 text-primary rounded-tr-none border border-primary/20;
 }
 
 .assistant-message {
-  @apply bg-muted text-muted-foreground rounded-tl-none;
+  @apply bg-secondary text-secondary-foreground rounded-tl-none border border-accent/20;
 }
 
 .thinking-bubble {
@@ -53,9 +62,22 @@ body {
   @apply bg-muted text-muted-foreground border-input focus:ring-2 focus:ring-ring focus:border-transparent;
 }
 
+.note-card {
+  @apply bg-card border border-border rounded-lg overflow-hidden transition-all duration-300 ease-in-out;
+}
+
+.note-card.expanded {
+  @apply scale-100;
+}
+
+.note-card.collapsed {
+  @apply cursor-pointer hover:bg-card/80;
+  max-height: 200px;
+}
+
 /* Code block styles */
 pre {
-  @apply bg-muted rounded-lg p-4 my-4 overflow-x-auto;
+  @apply bg-muted rounded-lg p-4 my-4 overflow-x-auto border border-border;
 }
 
 pre code {
@@ -94,7 +116,7 @@ code {
 }
 
 .prose blockquote {
-  @apply border-l-4 border-border bg-muted/50 px-4 py-2 rounded-r my-4;
+  @apply border-l-4 border-accent bg-muted/50 px-4 py-2 rounded-r my-4;
 }
 
 .prose a {
@@ -124,9 +146,25 @@ code {
 
 /* Copy button styles */
 .copy-button {
-  @apply absolute right-2 top-2 bg-dark-700 hover:bg-dark-600 text-dark-200 px-2 py-1 rounded text-sm opacity-0 group-hover:opacity-100 transition-opacity;
+  @apply absolute right-2 top-2 bg-accent hover:bg-accent/80 text-accent-foreground px-2 py-1 rounded text-sm opacity-0 group-hover:opacity-100 transition-opacity;
 }
 
 .copy-button.copied {
   @apply bg-green-600 text-white;
+}
+
+/* Animations */
+@keyframes slideDown {
+  from {
+    max-height: 200px;
+    opacity: 0.8;
+  }
+  to {
+    max-height: 1000px;
+    opacity: 1;
+  }
+}
+
+.slide-down {
+  animation: slideDown 0.3s ease-out forwards;
 }
