@@ -1,15 +1,12 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  content: [
-    "./index.html",
-    "./src/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
-  darkMode: 'class',
+  content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx,mdx}", "*.{js,ts,jsx,tsx,mdx}"],
+  darkMode: "class",
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', 'system-ui', '-apple-system', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
+        sans: ["Inter var", "system-ui", "-apple-system", "sans-serif"],
+        mono: ["JetBrains Mono", "monospace"],
       },
       colors: {
         border: "hsl(var(--border))",
@@ -46,10 +43,10 @@ export default {
           foreground: "hsl(var(--destructive-foreground))",
         },
         dark: {
-          200: '#e5e7eb',
-          400: '#9ca3af',
-          600: '#374151',
-          700: '#1f2937',
+          200: "#e5e7eb",
+          400: "#9ca3af",
+          600: "#374151",
+          700: "#1f2937",
         },
       },
       borderRadius: {
@@ -59,7 +56,6 @@ export default {
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require("@tailwindcss/typography")],
 }
+
